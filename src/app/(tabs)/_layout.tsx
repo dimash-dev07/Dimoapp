@@ -1,22 +1,30 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
+import { useSettings } from '../../context/SettingsContext';
 import { useLanguage } from '../../i18n/LanguageContext';
 
 export default function TabsLayout() {
     const { t } = useLanguage();
+    const { colors, scaleFont } = useSettings();
 
     return (
         <Tabs
             screenOptions={{
                 headerShown: false,
-                tabBarActiveTintColor: '#1E4FD8',
-                tabBarInactiveTintColor: '#9AA5B1',
+                tabBarActiveTintColor: colors.primary,
+                tabBarInactiveTintColor: colors.tabInactive,
                 tabBarStyle: {
-                    height: 68, paddingBottom: 10, paddingTop: 8,
-                    borderTopWidth: 0, elevation: 10,
-                    shadowColor: '#000', shadowOpacity: 0.08, shadowRadius: 8,
+                    height: 68,
+                    paddingBottom: 10,
+                    paddingTop: 8,
+                    borderTopWidth: 0,
+                    elevation: 10,
+                    backgroundColor: colors.tabBar,
+                    shadowColor: '#000',
+                    shadowOpacity: 0.08,
+                    shadowRadius: 8,
                 },
-                tabBarLabelStyle: { fontSize: 11, fontWeight: '600' },
+                tabBarLabelStyle: { fontSize: scaleFont(11), fontWeight: '600' },
             }}
         >
             <Tabs.Screen
@@ -45,6 +53,14 @@ export default function TabsLayout() {
                 options={{
                     tabBarLabel: t.stats,
                     tabBarIcon: ({ color, size }) => <Ionicons name="stats-chart" size={size} color={color} />,
+                }}
+            />
+            {/* ЖАҢА ҚОСЫЛҒАН ТАБ: Жаңалықтар */}
+            <Tabs.Screen
+                name="news"
+                options={{
+                    tabBarLabel: 'Жаңалықтар',
+                    tabBarIcon: ({ color, size }) => <Ionicons name="newspaper" size={size} color={color} />,
                 }}
             />
             <Tabs.Screen
